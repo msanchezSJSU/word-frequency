@@ -15,7 +15,7 @@ public class wordFreq {
         return this.frequency;
     }
 
-    public wordFreq compare(wordFreq wf1, wordFreq wf2){
+    public static wordFreq compare(wordFreq wf1, wordFreq wf2){
         if (wf1.getFreq() > wf2.getFreq()){
             return wf1;
         } else {
@@ -23,7 +23,42 @@ public class wordFreq {
         }
     }
 
+   public static void heapify(wordFreq[] wf, int n, int i){
+        int high = i;
+        int left = 2 * i + 1;
+        int right = left + 1;
+        if (left < n && compare(wf[left],wf[high]) == wf[left]){
+            high = left;
+        }
+        if (right < n && compare(wf[right],wf[high]) == wf[right]){
+            high = right;
+        }
+        if (high != i){
+            wordFreq temp = wf[i];
+            wf[i] = wf[high];
+            wf[high] = temp;
+            heapify(wf, n, high);
+        }
+   }
+
+    public static void buildMaxHeap(wordFreq[] wf){
+        int n = wf.length;
+        int nonLeafLast = (n/2) - 1;
+        for (int i = nonLeafLast; i >= 0; i--){
+            heapify(wf,n,i);
+        }
+    }
+
     public static void main(String[] args) {
+        // Binary Tree Representation
+        // of input array (FROM https://www.geeksforgeeks.org/dsa/building-heap-from-array/)
+        //             400
+        //           /     \
+        //         100      300
+        //       /    \     /  \
+        //     200    160  900 100
+        //    /  \    / 
+        //   140 800 700
         wordFreq[] wf = {
             new wordFreq("happy",400),
             new wordFreq("satisfied", 100),
@@ -36,5 +71,9 @@ public class wordFreq {
             new wordFreq("would recommend to friends", 800),
             new wordFreq("visit the store", 700),
         };
+        buildMaxHeap(wf);
+        for (wordFreq words : wf){
+            System.out.println(words.getWord() + " - " + words.getFreq());
+        }
     }
 }
