@@ -14,23 +14,18 @@ public class wordFreq {
     public int getFreq(){
         return this.frequency;
     }
-
-    public static wordFreq compare(wordFreq wf1, wordFreq wf2){
-        if (wf1.getFreq() > wf2.getFreq()){
-            return wf1;
-        } else {
-            return wf2;
-        }
+    public static boolean compare(wordFreq wf1, wordFreq wf2){
+        return wf1.getFreq() > wf2.getFreq();
     }
 
    public static void heapify(wordFreq[] wf, int n, int i){
         int high = i;
         int left = 2 * i + 1;
         int right = left + 1;
-        if (left < n && compare(wf[left],wf[high]) == wf[left]){
+        if (left < n && compare(wf[left],wf[high])){
             high = left;
         }
-        if (right < n && compare(wf[right],wf[high]) == wf[right]){
+        if (right < n && compare(wf[right],wf[high])){
             high = right;
         }
         if (high != i){
@@ -75,5 +70,14 @@ public class wordFreq {
         for (wordFreq words : wf){
             System.out.println(words.getWord() + " - " + words.getFreq());
         }
+        // Binary Tree Representation
+        // of heap sorted array (FROM https://www.geeksforgeeks.org/dsa/building-heap-from-array/)
+        //             900
+        //           /     \
+        //         800      400
+        //       /    \     /  \
+        //     200    700  300 100
+        //    /  \    / 
+        //   140 100 160
     }
 }
