@@ -1,23 +1,23 @@
 public class wordFreq {
     String word;
     int frequency;
-
+    // constructor function to initialize wordFreq objects
     public wordFreq(String word, int frequency){
         this.word = word;
         this.frequency = frequency;
     }
-
+    // accessor functions to retrieve elements of class object
     public String getWord(){
         return this.word;
     }
-
     public int getFreq(){
         return this.frequency;
     }
+    // comparator function to allow heapify to work properly
     public static boolean compare(wordFreq wf1, wordFreq wf2){
         return wf1.getFreq() > wf2.getFreq();
     }
-
+    // recursive function that works bottom-up and checks until no swaps are made anymore
    public static void heapify(wordFreq[] wf, int n, int i){
         int high = i;
         int left = 2 * i + 1;
